@@ -1,38 +1,68 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import Rx from 'rxjs';
 import ReactDOM from 'react-dom';
-import Counter from './RxExample';
 
-const TestComponent = () => (
-  <div>
-    <h1>test</h1>
-  </div>
-)
-
-const HOC = (...observables) => Composed => class extends Component {
+const HOC = (
+  observables, getObservables
+) => BaseComponent => class extends Component {
   constructor(props) {
     super(props);
 
-    console.log('props: ', props, 'obs: ', observables);
-  }
+    this.state = {
+      values: null
+    }
 
-  render({ first } = this.props) {
-    return (
-      <p>in training</p>
+    this.observables = Object.entries(observables).map(item => ({
+      name: item[0],
+      observable: item[1]
+    }));
+    
+    this.combinedObservables = getObservables.apply(this,
+      this.observables.map(item => item.observable)
     );
   }
-}
+
+  componentDidMount() {
+    this.combinedObservables.subscribe((latestValues) => {
+      this.setState({
+        values: latestValues.map((item, i) => ({
+          name: this.observables[i].name,
+          value: item
+        }))
+      });
+    });
+  }
+
+  render() {
+    return (
+      <div key="test">
+        <BaseComponent values={this.state.values} />
+      </div>
+    );
+  }
+};
+
+const MyComponent = ({ values }) => (
+  <div>
+    {values && values.map(item => (
+      <div>
+        <p>name: {item.name}</p>
+        <p>value: {item.value}</p>
+      </div>
+    ))}
+  </div>
+);
 
 const Test = HOC({
-  first: 'first param',
-  second: 'second param'
-})(TestComponent)
-
-
+  firstInput: Rx.Observable,
+  secondInput: Rx.Observable
+}, (...observables) =>
+  Rx.Observable.combineLatest(observables)
+)(MyComponent);
 
 
 ReactDOM.render(
-  <Counter test="this" />,
+  <Test test="this" />,
   document.getElementById('root')
 );
