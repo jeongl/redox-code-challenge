@@ -22,7 +22,7 @@ The front end is fairly simple with a filter to show closed or open PRs.
   2) Create a `.env` file with your github credentials and store it in the root of the project. This will be used to call the github API using your account details. Here a reference to the section of code - https://github.com/jeongl/redox-code-challenge/blob/master/src/api/githubApi.js#L15
   * An example `.env` looks like this:
 ``` json 
-    USERNAME=jeongl
+  USERNAME=jeongl
   PASSWORD=ssshhhh
 ```
   3) Start the server by running `yarn start-server`. This will start the server, pull PRs from lodash and store it in memory.
