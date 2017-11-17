@@ -19,6 +19,8 @@ const enhance = compose(
         .then(resp => resp.json())
         .then((resp) => {
           this.setState({ apiData: flattenDeep(resp) });
+        }).catch((e) => {
+          this.setState({ error: e });
         });
     }
   }),
@@ -30,12 +32,15 @@ const enhance = compose(
 );
 
 const ShowPullRequests = enhance(({
-  apiData, selectedFilter, updateFilter
+  apiData, selectedFilter, updateFilter, error
 }) => (
   <div id="show-prs">
     <NavBar selected={selectedFilter} updateFilter={updateFilter} />
     {apiData &&
       <JSONTree data={apiData} theme={JSONtheme} invertTheme={true} />
+    }
+    {error &&
+      <h1 style={{ color: 'red' }}>Something bad happened.</h1>
     }
   </div>
 ));
