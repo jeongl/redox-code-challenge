@@ -2887,7 +2887,7 @@ var enhance = (0, _recompose.compose)((0, _recompose.withState)('selectedFilter'
   componentDidMount: function componentDidMount() {
     var _this = this;
 
-    fetch('http://localhost:3037/fetchAllPullRequests').then(function (resp) {
+    fetch('http://jlim.site/fetchAllPullRequests').then(function (resp) {
       return resp.json();
     }).then(function (resp) {
       _this.setState({ apiData: (0, _lodash.flattenDeep)(resp) });
