@@ -15,7 +15,7 @@ const enhance = compose(
   }),
   lifecycle({
     componentDidMount() {
-      fetch('http://localhost:3000/fetchAllPullRequests')
+      fetch('http://localhost:3037/fetchAllPullRequests')
         .then(resp => resp.json())
         .then((resp) => {
           this.setState({ apiData: flattenDeep(resp) });

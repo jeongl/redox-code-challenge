@@ -25,7 +25,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Rx react events',
+      title: 'Redox code challenge',
       template: './index.html'
     }),
   ]
