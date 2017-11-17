@@ -4,6 +4,9 @@
     "comma-dangle": "off",
     "no-console": "off",
     "import/no-extraneous-dependencies": "off",
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "import/newline-after-import": "off",
+    "import/no-named-as-default": "off",
+    "function-paren-newline": "off"
   }
 }
