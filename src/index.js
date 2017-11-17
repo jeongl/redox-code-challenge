@@ -1,38 +1,15 @@
-/* eslint-disable */
-import React, { Component } from 'react';
-import { compose } from 'recompose';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Counter from './RxExample';
+import ShowPullRequests from './components/ShowPullRequests';
 
-const TestComponent = () => (
-  <div>
-    <h1>test</h1>
+const Main = () => (
+  <div id="main">
+    <p>PR info for Lodash</p>
+    <ShowPullRequests />
   </div>
 )
 
-const HOC = (...observables) => Composed => class extends Component {
-  constructor(props) {
-    super(props);
-
-    console.log('props: ', props, 'obs: ', observables);
-  }
-
-  render({ first } = this.props) {
-    return (
-      <p>in training</p>
-    );
-  }
-}
-
-const Test = HOC({
-  first: 'first param',
-  second: 'second param'
-})(TestComponent)
-
-
-
-
 ReactDOM.render(
-  <Counter test="this" />,
+  <Main />,
   document.getElementById('root')
 );
